@@ -17,3 +17,15 @@ variable "tags" {
   type        = map(string)
   description = "A map of the tags to use on the resources that are deployed with this module."
 }
+
+variable "user_assigned_managed_identities" {
+  description = "Object to create user assigned managed identities"
+  type = list(object({
+    name                              = string
+    create_federated_credential       = optional(bool, false)
+    federated_credential_audiences    = optional(list(string), [])
+    federated_credential_display_name = optional(string)
+    federated_credential_subject      = optional(string)
+    federated_credential_issuer       = optional(string)
+  }))
+}
