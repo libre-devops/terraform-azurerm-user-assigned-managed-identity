@@ -3,11 +3,6 @@ variable "location" {
   type        = string
 }
 
-variable "name" {
-  type        = string
-  description = "The name of the VNet gateway"
-}
-
 variable "rg_name" {
   description = "The name of the resource group, this module does not create a resource group, it is expecting the value of a resource group already exists"
   type        = string
@@ -23,7 +18,7 @@ variable "user_assigned_managed_identities" {
   type = list(object({
     name                              = string
     create_federated_credential       = optional(bool, false)
-    federated_credential_audiences    = optional(list(string), [])
+    federated_credential_audiences    = optional(list(string), ["api://AzureADTokenExchange"])
     federated_credential_display_name = optional(string)
     federated_credential_subject      = optional(string)
     federated_credential_issuer       = optional(string)

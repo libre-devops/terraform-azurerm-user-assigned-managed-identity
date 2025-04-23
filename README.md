@@ -10,9 +10,9 @@ resource "azurerm_user_assigned_identity" "this" {
 
 resource "azurerm_federated_identity_credential" "this" {
   for_each            = { for k, v in var.user_assigned_managed_identities : k => v if v.create_federated_credential == true }
-  name                = each.value.federated_credential_display_name
-  resource_group_name = azurerm_user_assigned_identity[each.key].this.resource_group_name
-  parent_id           = azurerm_user_assigned_identity[each.key].this.id
+  name                = each.value.federated_credential_display_name == null ? "fd-${each.value.name}" : each.value.federated_credential_display_name
+  resource_group_name = azurerm_user_assigned_identity.this[each.key].resource_group_name
+  parent_id           = azurerm_user_assigned_identity.this[each.key].id
   audience            = each.value.federated_credential_audiences
   issuer              = each.value.federated_credential_issuer
   subject             = each.value.federated_credential_subject
@@ -44,10 +44,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_location"></a> [location](#input\_location) | The location for this resource to be put in | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | The name of the VNet gateway | `string` | n/a | yes |
 | <a name="input_rg_name"></a> [rg\_name](#input\_rg\_name) | The name of the resource group, this module does not create a resource group, it is expecting the value of a resource group already exists | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of the tags to use on the resources that are deployed with this module. | `map(string)` | n/a | yes |
-| <a name="input_user_assigned_managed_identities"></a> [user\_assigned\_managed\_identities](#input\_user\_assigned\_managed\_identities) | Object to create user assigned managed identities | <pre>list(object({<br/>    name                              = string<br/>    create_federated_credential       = optional(bool, false)<br/>    federated_credential_audiences    = optional(list(string), [])<br/>    federated_credential_display_name = optional(string)<br/>    federated_credential_subject      = optional(string)<br/>    federated_credential_issuer       = optional(string)<br/>  }))</pre> | n/a | yes |
+| <a name="input_user_assigned_managed_identities"></a> [user\_assigned\_managed\_identities](#input\_user\_assigned\_managed\_identities) | Object to create user assigned managed identities | <pre>list(object({<br/>    name                              = string<br/>    create_federated_credential       = optional(bool, false)<br/>    federated_credential_audiences    = optional(list(string), ["api://AzureADTokenExchange"])<br/>    federated_credential_display_name = optional(string)<br/>    federated_credential_subject      = optional(string)<br/>    federated_credential_issuer       = optional(string)<br/>  }))</pre> | n/a | yes |
 
 ## Outputs
 
