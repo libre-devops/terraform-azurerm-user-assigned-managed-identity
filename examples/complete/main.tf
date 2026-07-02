@@ -23,8 +23,8 @@ module "rg" {
 
 # Complete call: the full surface. A CI identity carrying two GitHub Actions federated credentials
 # (workload identity federation: the runner's OIDC token is exchanged for the identity, no client
-# secret), a workload identity with per-identity tags and an explicit isolation scope, and a plain
-# identity with nothing optional set.
+# secret), a workload identity with per-identity tags, and a plain identity with nothing optional set
+# (isolation_scope, feature-gated and Regional-only, is exercised in the mocked tests).
 module "user_assigned_managed_identity" {
   source = "../../"
 
