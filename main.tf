@@ -41,8 +41,9 @@ resource "azurerm_user_assigned_identity" "this" {
 resource "azurerm_federated_identity_credential" "this" {
   for_each = local.federated_credentials
 
-  resource_group_name = local.rg_name
-  name                = each.value.cred_name
+  # No resource_group_name: the classic argument is deprecated (the credential's group derives from
+  # the identity id).
+  name = each.value.cred_name
 
   user_assigned_identity_id = azurerm_user_assigned_identity.this[each.value.identity_name].id
   issuer                    = each.value.issuer
