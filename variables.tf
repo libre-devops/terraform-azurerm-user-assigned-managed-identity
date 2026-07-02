@@ -44,8 +44,8 @@ DESC
   default = {}
 
   validation {
-    condition     = alltrue([for i in values(var.user_assigned_identities) : i.isolation_scope == null || contains(["None", "Regional"], coalesce(i.isolation_scope, "None"))])
-    error_message = "isolation_scope, when set, must be None or Regional."
+    condition     = alltrue([for i in values(var.user_assigned_identities) : i.isolation_scope == null || coalesce(i.isolation_scope, "Regional") == "Regional"])
+    error_message = "isolation_scope, when set, must be Regional (leave it unset for the standard behaviour; the provider accepts no other value)."
   }
 
   validation {

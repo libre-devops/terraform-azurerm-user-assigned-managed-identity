@@ -15,8 +15,9 @@
 # Complete example
 
 The full surface of the module: a CI identity carrying two GitHub Actions federated credentials
-(workload identity federation, no client secret), a workload identity with per-identity tags and an
-explicit isolation scope, and a plain identity with nothing optional set. Run it with
+(workload identity federation, no client secret), a workload identity with per-identity tags, and a plain
+identity with nothing optional set (isolation_scope, whose only accepted value is Regional and whose
+availability is feature-gated, is exercised in the mocked tests). Run it with
 `just e2e complete`, which applies the stack then always destroys it.
 
 [![Terraform Registry](https://img.shields.io/badge/registry-libre--devops-7B42BC?logo=terraform&logoColor=white)](https://registry.terraform.io/namespaces/libre-devops)
@@ -75,8 +76,7 @@ module "user_assigned_managed_identity" {
     }
 
     "id-${var.short}-app-${var.loc}-${terraform.workspace}-002" = {
-      tags            = { Component = "app" }
-      isolation_scope = "None"
+      tags = { Component = "app" }
     }
 
     "id-${var.short}-plain-${var.loc}-${terraform.workspace}-002" = {}

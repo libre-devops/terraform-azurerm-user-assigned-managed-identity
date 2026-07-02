@@ -31,7 +31,7 @@ name) for workload identity federation: an external OIDC issuer (GitHub Actions,
 accounts, and so on) exchanges its own token for the identity, so no client secret ever exists. The
 audience defaults to the standard `api://AzureADTokenExchange`, and a plan-time check catches the
 duplicate (issuer, subject) pairs Azure would reject at the API. `isolation_scope` is exposed for
-regionally isolated identities.
+regionally isolated identities (the provider accepts only Regional; leave it unset otherwise).
 
 Outputs cover everything composition needs: `principal_ids` (what RBAC assignments target, pairs with
 the `role-assignment` module), `client_ids` (what workloads authenticate as), `tenant_ids`, plus ids,

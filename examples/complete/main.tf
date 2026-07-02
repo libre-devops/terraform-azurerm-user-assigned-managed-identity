@@ -48,8 +48,7 @@ module "user_assigned_managed_identity" {
     }
 
     "id-${var.short}-app-${var.loc}-${terraform.workspace}-002" = {
-      tags            = { Component = "app" }
-      isolation_scope = "None"
+      tags = { Component = "app" }
     }
 
     "id-${var.short}-plain-${var.loc}-${terraform.workspace}-002" = {}
