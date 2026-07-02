@@ -34,8 +34,17 @@ output "tenant_ids" {
 }
 
 output "federated_credentials" {
-  description = "The federated credentials, keyed \"identity|credential\". Full resource objects."
-  value       = azurerm_federated_identity_credential.this
+  description = "The federated credentials, keyed \"identity|credential\". Curated projection (a full-object output would touch the resource's deprecated parent_id / resource_group_name attributes)."
+  value = {
+    for k, c in azurerm_federated_identity_credential.this : k => {
+      id                        = c.id
+      name                      = c.name
+      user_assigned_identity_id = c.user_assigned_identity_id
+      issuer                    = c.issuer
+      subject                   = c.subject
+      audience                  = c.audience
+    }
+  }
 }
 
 output "federated_credential_ids" {

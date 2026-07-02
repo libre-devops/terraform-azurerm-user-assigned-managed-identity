@@ -142,7 +142,7 @@ No modules.
 |------|-------------|
 | <a name="output_client_ids"></a> [client\_ids](#output\_client\_ids) | Map of identity name to the client (application) id (what workloads authenticate as). |
 | <a name="output_federated_credential_ids"></a> [federated\_credential\_ids](#output\_federated\_credential\_ids) | Map of "identity\|credential" to federated credential id. |
-| <a name="output_federated_credentials"></a> [federated\_credentials](#output\_federated\_credentials) | The federated credentials, keyed "identity\|credential". Full resource objects. |
+| <a name="output_federated_credentials"></a> [federated\_credentials](#output\_federated\_credentials) | The federated credentials, keyed "identity\|credential". Curated projection (a full-object output would touch the resource's deprecated parent\_id / resource\_group\_name attributes). |
 | <a name="output_ids"></a> [ids](#output\_ids) | Map of identity name to resource id. |
 | <a name="output_ids_zipmap"></a> [ids\_zipmap](#output\_ids\_zipmap) | Map of identity name to { name, id }, for easy composition with other modules. |
 | <a name="output_names"></a> [names](#output\_names) | Map of identity name to name (convenience passthrough). |
